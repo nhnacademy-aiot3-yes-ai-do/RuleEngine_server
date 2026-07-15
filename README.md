@@ -1,4 +1,4 @@
-# RuleEngine Server(= Collector Service)
+# RuleEngine Server
 
 버섯 재배 환경에 대한 센서 데이터를 수집·정제하고, 수집된 데이터를 룰 엔진으로 판단하여 필요한 조치를 취하는 RuleEngine Server 입니다.
 
@@ -24,11 +24,10 @@
 
 ## 문서
 - [00. 아키텍처 개요](./docs/00.%20아키텍처%20개요.md)
-- [01. MQTT 연동](./docs/01.%20MQTT%20연동.md)
-- [02. CollectorService 구조](./docs/02.%20CollectorService%20구조.md)
-- [03. 데이터 전달(EventListener)](./docs/03.%20데이터%20전달(EventListener).md)
-- [04. RuleEngine](./docs/04.%20RuleEngine.md)
-- [05. RabbitMQ 발행](./docs/05.%20RabbitMQ%20발행.md)
+- [01. CollectorService 구조](./docs/01.%20CollectorService%20구조.md)
+- [02. 데이터 전달(EventListener)](./docs/02.%20데이터%20전달(EventListener).md)
+- [03. RuleEngine](./docs/03.%20RuleEngine.md)
+- [04. RabbitMQ 발행](./docs/04.%20RabbitMQ%20발행.md)
 
 [//]: # (아래 사항은 프로젝트 진행 중 필요하다싶으면 추가)
-[//]: # (- [06. RabbitMQ 실패처리]&#40;./docs/06.%20RabbitMQ%20실패처리.md&#41;)
+[//]: # (- [05. RabbitMQ 실패처리]&#40;./docs/06.%20RabbitMQ%20실패처리.md&#41;)
