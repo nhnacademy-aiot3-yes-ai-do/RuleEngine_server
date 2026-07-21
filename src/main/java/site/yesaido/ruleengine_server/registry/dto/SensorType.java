@@ -1,5 +1,6 @@
 package site.yesaido.ruleengine_server.registry.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -15,4 +16,17 @@ public enum SensorType {
     LIGHT("조도");
 
     private final String name;
+
+    @JsonCreator
+    public static SensorType from(String value) {
+        if (value == null) {
+            return null;
+        }
+        for (SensorType sensorType : SensorType.values()) {
+            if (sensorType.name().equalsIgnoreCase(value)) {
+                return sensorType;
+            }
+        }
+        throw new IllegalArgumentException("Unknown SensorType: " + value);
+    }
 }
