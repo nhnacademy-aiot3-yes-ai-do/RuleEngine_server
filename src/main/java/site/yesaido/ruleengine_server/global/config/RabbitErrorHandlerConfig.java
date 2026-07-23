@@ -12,7 +12,10 @@ public class RabbitErrorHandlerConfig {
     @Bean
     public RabbitListenerErrorHandler validationErrorHandler() {
         return (amqpMessage, channel, message, exception) -> {
-            log.warn("[RabbitMQ Validation] 수신 메세지 검증 에러 : {}", message, exception);
+            log.warn("[RabbitMQ] 메세지 처리 실패 - body: {}, cause: {}",
+                    new String(amqpMessage.getBody()),
+                    exception.getCause() != null ? exception.getCause().getClass().getSimpleName() : exception.getClass().getSimpleName(),
+                    exception);
             return null;
         };
     }

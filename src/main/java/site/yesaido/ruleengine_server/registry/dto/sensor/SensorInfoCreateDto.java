@@ -1,18 +1,19 @@
-package site.yesaido.ruleengine_server.registry.dto;
+package site.yesaido.ruleengine_server.registry.dto.sensor;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import site.yesaido.ruleengine_server.registry.dto.SensorType;
 
 /**
- * 센서 및 임계값 정보를 위한 DTO입니다.
+ * 센서 정보 생성을 위한 DTO입니다.
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class SensorInfoDto {
+public class SensorInfoCreateDto {
 
     @NotNull
     private Long cultivationId;
