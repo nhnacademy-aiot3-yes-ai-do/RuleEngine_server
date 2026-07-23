@@ -1,27 +1,36 @@
 package site.yesaido.ruleengine_server.registry.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import site.yesaido.ruleengine_server.registry.dto.cultivation.CultivationInfoCreateDto;
 import site.yesaido.ruleengine_server.registry.dto.cultivation.CultivationInfoDeleteDto;
-import site.yesaido.ruleengine_server.registry.dto.cultivation.CultivationInfoUpdateDto;
+import site.yesaido.ruleengine_server.registry.dto.cultivation.CultivationInfoDto;
+import site.yesaido.ruleengine_server.registry.repository.CultivationInfoRepository;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class CultivationInfoService {
 
-    // ...
+    private final CultivationInfoRepository cultivationInfoRepository;
 
-    public void createCultivationInfo(CultivationInfoCreateDto cultivationInfoCreateDto) {
-
-    }
-
-    public void updateCultivationInfo(CultivationInfoUpdateDto cultivationInfoUpdateDto) {
-
+    public void upsertCultivationInfo(CultivationInfoDto cultivationInfoDto) {
+        cultivationInfoRepository.upsertCultivationInfo(
+                cultivationInfoDto
+        );
     }
 
     public void deleteCultivationInfo(CultivationInfoDeleteDto cultivationInfoDeleteDto) {
 
+        long cultivationId = cultivationInfoDeleteDto.getCultivationId();
+
+        if (!cultivationInfoRepository.exists(cultivationId)) {
+            log.warn("삭제하려는 재배 환경(cultivationId={})이 존재하지 않음 (이미 삭제되었거나 동기화 전)", cultivationId);
+        }
+
+        cultivationInfoRepository.deleteCultivationInfo(
+                cultivationId
+        );
     }
 
 }

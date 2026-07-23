@@ -15,7 +15,7 @@ public enum SensorType {
     CO2("이산화탄소"),
     LIGHT("조도");
 
-    private final String name;
+    private final String koreanName;
 
     @JsonCreator
     public static SensorType from(String value) {

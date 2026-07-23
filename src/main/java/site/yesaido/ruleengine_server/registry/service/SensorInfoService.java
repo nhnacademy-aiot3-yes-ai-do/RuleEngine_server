@@ -1,26 +1,50 @@
 package site.yesaido.ruleengine_server.registry.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import site.yesaido.ruleengine_server.registry.dto.sensor.SensorInfoCreateDto;
+import site.yesaido.ruleengine_server.registry.dto.SensorType;
 import site.yesaido.ruleengine_server.registry.dto.sensor.SensorInfoDeleteDto;
-import site.yesaido.ruleengine_server.registry.dto.sensor.SensorInfoUpdateDto;
+import site.yesaido.ruleengine_server.registry.dto.sensor.SensorInfoDto;
+import site.yesaido.ruleengine_server.registry.repository.CultivationInfoRepository;
+import site.yesaido.ruleengine_server.registry.repository.SensorInfoRepository;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class SensorInfoService {
 
-    // ...
+    private final CultivationInfoRepository cultivationInfoRepository;
+    private final SensorInfoRepository sensorInfoRepository;
 
-    public void createSensorInfo(SensorInfoCreateDto sensorInfoCreateDto) {
+    public void upsertSensorInfo(SensorInfoDto sensorInfoDto) {
 
-    }
+        if (!cultivationInfoRepository.exists(sensorInfoDto.getCultivationId())) {
+            log.warn("센서(deviceModel={}, deviceEui={}, sensorType={})가 추가될 재배 환경((cultivationId={})이 존재하지 않음",
+                    sensorInfoDto.getDeviceModel(),
+                    sensorInfoDto.getDeviceEui(),
+                    sensorInfoDto.getSensorType().name(),
+                    sensorInfoDto.getCultivationId()
+            );
+        }
 
-    public void updateSensorInfo(SensorInfoUpdateDto sensorInfoUpdateDto) {
-
+        sensorInfoRepository.upsertSensorInfo(
+                sensorInfoDto
+        );
     }
 
     public void deleteSensorInfo(SensorInfoDeleteDto sensorInfoDeleteDto) {
 
+        long cultivationId = sensorInfoDeleteDto.getCultivationId();
+        SensorType sensorType = sensorInfoDeleteDto.getSensorType();
+
+        if (!sensorInfoRepository.exists(cultivationId, sensorType)) {
+            log.warn("삭제하려는 센서(cultivationId={}, sensorType={})가 존재하지 않음", cultivationId, sensorType.name());
+        }
+
+        sensorInfoRepository.deleteSensorInfo(
+                sensorInfoDeleteDto.getCultivationId(),
+                sensorInfoDeleteDto.getSensorType()
+        );
     }
 }

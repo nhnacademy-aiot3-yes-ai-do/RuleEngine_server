@@ -6,9 +6,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-import site.yesaido.ruleengine_server.registry.dto.cultivation.CultivationInfoCreateDto;
 import site.yesaido.ruleengine_server.registry.dto.cultivation.CultivationInfoDeleteDto;
-import site.yesaido.ruleengine_server.registry.dto.cultivation.CultivationInfoUpdateDto;
+import site.yesaido.ruleengine_server.registry.dto.cultivation.CultivationInfoDto;
 import site.yesaido.ruleengine_server.registry.service.CultivationInfoService;
 
 @RequiredArgsConstructor
@@ -19,15 +18,9 @@ public class CultivationInfoConsumer {
     private final CultivationInfoService cultivationInfoService;
 
     @RabbitHandler
-    public void consumeCultivationInfoCreate(@Payload @Valid CultivationInfoCreateDto cultivationInfoCreateDto) {
+    public void consumeCultivationInfoUpsert(@Payload @Valid CultivationInfoDto cultivationInfoDto) {
 
-        cultivationInfoService.createCultivationInfo(cultivationInfoCreateDto);
-    }
-
-    @RabbitHandler
-    public void consumeCultivationInfoUpdate(@Payload @Valid CultivationInfoUpdateDto cultivationInfoUpdateDto) {
-
-        cultivationInfoService.updateCultivationInfo(cultivationInfoUpdateDto);
+        cultivationInfoService.upsertCultivationInfo(cultivationInfoDto);
     }
 
     @RabbitHandler
