@@ -1,0 +1,40 @@
+package site.yesaido.ruleengine_server.registry.repository;
+
+import site.yesaido.ruleengine_server.registry.dto.SensorType;
+import site.yesaido.ruleengine_server.registry.dto.sensor.SensorInfoDto;
+
+/**
+ * 센서 정보의 CRUD를 담당하는 Repository 인터페이스입니다.<br>
+ * Redis 외 다른 Repository를 고려하여 인터페이스로 정의합니다.
+ */
+public interface SensorInfoRepository {
+
+    /**
+     * [Create & Update] 센서 정보를 삽입 또는 갱신합니다.
+     * @param dto 삽입 또는 갱신할 센서에 대한 정보를 담은 dto
+     */
+    void upsertSensorInfo(SensorInfoDto dto);
+
+    // Read
+    /*
+        추후 조회 기능 필요 시, 그 시점에 메서드 작성
+        void findSensorInfo();
+    */
+
+    /**
+     * [Delete] 센서 정보를 삭제합니다.
+     * @param cultivationId 삭제할 센서가 속한 재배 환경의 id
+     * @param sensorType 삭제할 센서 종류
+     */
+    void deleteSensorInfo(Long cultivationId, SensorType sensorType);
+
+    // ==================================================
+
+    /**
+     * 센서 정보에 대한 존재 여부를 반환합니다.
+     * @param cultivationId 존재 여부를 확인할 센서가 속한 재배 환경의 id
+     * @param sensorType 존재 여부를 확인할 센서 종류
+     * @return {@code true} 센서 정보가 존재할 경우
+     */
+    boolean exists(Long cultivationId, SensorType sensorType);
+}
