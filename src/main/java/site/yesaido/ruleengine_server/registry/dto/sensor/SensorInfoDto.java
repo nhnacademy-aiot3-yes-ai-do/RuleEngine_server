@@ -3,6 +3,7 @@ package site.yesaido.ruleengine_server.registry.dto.sensor;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import site.yesaido.ruleengine_server.registry.dto.SensorType;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class SensorInfoDto {
 
     @NotNull

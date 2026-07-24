@@ -1,6 +1,7 @@
 package site.yesaido.ruleengine_server.registry.dto.cultivation;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CultivationInfoDto {
 
     @NotNull
