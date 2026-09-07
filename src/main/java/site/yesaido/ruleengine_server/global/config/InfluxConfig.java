@@ -5,6 +5,7 @@ import com.influxdb.client.write.events.WriteErrorEvent;
 import com.influxdb.client.write.events.WriteSuccessEvent;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,12 +43,15 @@ public class InfluxConfig {
         return InfluxDBClientFactory.create(options);
     }
 
+    @Value("${rule-engine.batch.save-time}")
+    private int batchTime;
+
     @Bean(destroyMethod = "close")
     public WriteApi influxWriteApi(InfluxDBClient influxDBClient) {
 
         WriteOptions writeOptions = WriteOptions.builder()
                 .batchSize(1000)
-                .flushInterval(3000)
+                .flushInterval(batchTime)
                 .build();
 
         WriteApi writeApi = influxDBClient.makeWriteApi(writeOptions);
