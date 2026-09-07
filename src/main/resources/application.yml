@@ -51,6 +51,8 @@ influx:
         access-client-secret: ${CF_ACCESS_CLIENT_SECRET:}
 
 rule-engine:
+    batch:
+        save-time: 2000
     alert:
         cooldown:
             minutes: 5
